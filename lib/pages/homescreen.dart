@@ -167,15 +167,22 @@ if(_homedata==null){
         ),
 
             ListTile(
-              title: Text("Help"),
+              title: Text("Contact Us"),
               onTap: () {
                 Navigator.of(context).pop();
               },
             ),
             ListTile(
-              title: Text("Select Plan"),
+              title: Text("Upgrade to Premium"),
               onTap: () {
                 Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text("Report a Problem"),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed('/reportbug');
+                //Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -191,7 +198,8 @@ if(_homedata==null){
               onTap: () {
                 Navigator.of(context).pop();
               },
-            )
+            ),
+
           ],
         ),
       ),
@@ -264,8 +272,90 @@ if(_homedata==null){
               GestureDetector(
                 child: Image.asset('assets/Snap.png', height: 90),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed('/Mimages');
+                  //Navigator.of(context).pushReplacementNamed('/Mimages');
+//pop
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        elevation: 16,
+                        child: Container(
+                          height: 230.0,
+                          width: 330.0,
+                          child: ListView(
+                            children: <Widget>[
+                              SizedBox(height: 20),
+                              //Center(
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  "Add a Receipt",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              // ),
+                              SizedBox(height: 20),
+                              FlatButton(
+                                child: Text(
+                                  'Take a photo..',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  // Navigator.of(context).pushReplacementNamed('/edgedetec');
+                                  Navigator.pushReplacementNamed(
+                                      context, '/crop',
+                                      arguments: {
+                                        'pickerCode': "0",
+                                      });
+                                  //Navigator.of(context).pop();
 
+                                  // picker.getImage(ImageSource.camera);
+                                },
+                                textColor: Colors.black,
+                              ),
+                              FlatButton(
+                                child: Text(
+                                  'Choose from Library..',
+                                  style: TextStyle(fontSize: 20),
+                                  textAlign: TextAlign.left,
+                                ),
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/crop',
+                                      arguments: {
+                                        'pickerCode': "1",
+                                      });
+                                },
+                                textColor: Colors.black,
+                              ),
+                              FlatButton(
+                                child: Text(
+                                  'Click to add long Receipt..',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacementNamed('/Mimages');
+                                  //Navigator.of(context).pop();
+
+                                  // picker.getImage(ImageSource.camera);
+                                },
+                                textColor: Colors.black,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                  //pop ends
                 },
               ),
               SizedBox(width: 90),

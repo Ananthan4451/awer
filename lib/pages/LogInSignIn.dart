@@ -411,7 +411,7 @@ fillall(){
 
                     // second tab [you can add an icon using the icon property]
                     Tab(
-                      text: 'Signin',
+                      text: 'Sign Up',
                     ),
                   ],
                 ),
@@ -502,7 +502,7 @@ fillall(){
                               ),
                             ),
                             onPressed: () {
-                              Navigator.of(context).pushNamed('/resetpassword');
+                              //Navigator.of(context).pushNamed('/resetpassword');
                             },
                             textColor: Colors.white,
                           ),
@@ -772,7 +772,7 @@ fillall(){
                                   textColor: Colors.white,
                                   color: Colors.green,
                                   child: Text(
-                                    "SIGNIN",
+                                    "SIGNUP",
                                     style: TextStyle(fontSize: 18),
                                   ),
                                   onPressed: () async {

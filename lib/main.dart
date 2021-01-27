@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:cashhub/pages/LogInSignIn.dart';
+import 'package:cashhub/pages/bugreport.dart';
+import 'package:cashhub/pages/edge_detectn.dart';
 import 'package:flutter/material.dart';
 import 'package:cashhub/pages/homescreen.dart';
 import 'package:cashhub/pages/search.dart';
@@ -36,6 +38,8 @@ void main() {
       '/resetpassword':(BuildContext context)=> new Passwordreset(),
       '/otppage':(BuildContext context)=> new OtpPage(),
       '/updatepassword':(BuildContext context)=> new updatepassword(),
+      '/reportbug':(BuildContext context)=> new bugreport(),
+      '/edgedetec':(BuildContext context)=> new Edge_Det(),
     },
   ));
 }

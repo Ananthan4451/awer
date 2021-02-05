@@ -34,5 +34,7 @@
 	<string>1:709176148027:ios:f51c9c3562cef290ef9c1e</string>
 	<key>DATABASE_URL</key>
 	<string>https://cashhub-5a2f1.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+    <string>ca-app-pub-6857391469887868~9106621646</string>
 </dict>
 </plist>

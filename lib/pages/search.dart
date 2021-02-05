@@ -115,7 +115,7 @@ class _searchwState extends State<searchw> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'You can search items by Date, Store Name, Product Name, SKU Number, UPC Number',
+                      'You can search items by Store Name, Product Name, SKU Number',
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 20),

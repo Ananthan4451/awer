@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:cashhub/ad_manager.dart';
 import 'package:cashhub/services/HomeService.dart';
 import 'package:cashhub/services/HomePageService.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,6 +44,7 @@ class _MainpageState extends State<Mainpage> {
   String ItemName;
   String usrName;
   String UsrEmail;
+  String actid;
 
   void _signOut()async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -56,7 +59,41 @@ class _MainpageState extends State<Mainpage> {
     await FacebookAuth.instance.logOut();
 
   }
+//adssection
+  // TODO: Add _interstitialAd
+  InterstitialAd _interstitialAd;
 
+  // TODO: Add _isInterstitialAdReady
+  bool _isInterstitialAdReady;
+
+
+  // TODO: Implement _loadInterstitialAd()
+  void _loadInterstitialAd() {
+    _interstitialAd.load();
+  }
+
+  // TODO: Implement _onInterstitialAdEvent()
+  void _onInterstitialAdEvent(MobileAdEvent event) {
+    switch (event) {
+      case MobileAdEvent.loaded:
+        _isInterstitialAdReady = true;
+        _interstitialAd.show();
+        break;
+      case MobileAdEvent.failedToLoad:
+        _isInterstitialAdReady = false;
+        print('Failed to load an interstitial ad');
+        break;
+      case MobileAdEvent.closed:
+        Navigator.of(context).pushNamed('/search');
+        print("ad closed");
+        break;
+      default:
+      // do nothing
+    }
+  }
+
+
+//adssection ends
   Future<Homedata> getHomeData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
@@ -79,6 +116,8 @@ getfname() async{
   //Return String
    usrName = prefs.getString('UserName');
   UsrEmail=prefs.getString('UserEmails');
+  actid=prefs.getString('actidd');
+  print(actid);
 
 }
   void initState() {
@@ -92,6 +131,18 @@ getfname();
       initOnsignal();
       //getStringValuesSF();
     });
+
+    //adsinit
+    _isInterstitialAdReady = false;
+
+    // TODO: Initialize _interstitialAd
+    _interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      // adUnitId: 'ca-app-pub-6857391469887868/9102752210',
+      listener: _onInterstitialAdEvent,
+    );
+
+    //adsinit ends
   }
 
   demodata() async {
@@ -175,7 +226,7 @@ if(_homedata==null){
             ListTile(
               title: Text("Upgrade to Premium"),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/perim1');
               },
             ),
             ListTile(
@@ -361,7 +412,10 @@ if(_homedata==null){
               SizedBox(width: 90),
               GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/search');
+                    actid=="3"?
+                    Navigator.of(context).pushNamed('/search'):
+                    _loadInterstitialAd();
+                    //Navigator.of(context).pushNamed('/search');
                   },
                   child: Image.asset('assets/search.png', height: 90)),
             ]),

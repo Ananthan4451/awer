@@ -1,5 +1,7 @@
 
 
+import 'package:cashhub/ad_manager.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:cashhub/services/datasentService.dart';
@@ -19,10 +21,55 @@ class _detailsState extends State<details> {
   double TDiscount=0.0;
   Timer _timer;
   int _start = 20;
+  String actid;
 
 
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   DatasentService _datasentService;
+
+  //adssection
+  // TODO: Add _interstitialAd
+  InterstitialAd _interstitialAd;
+
+  // TODO: Add _isInterstitialAdReady
+  bool _isInterstitialAdReady;
+
+
+  // TODO: Implement _loadInterstitialAd()
+  void _loadInterstitialAd() {
+    _interstitialAd.load();
+  }
+
+  // TODO: Implement _onInterstitialAdEvent()
+  void _onInterstitialAdEvent(MobileAdEvent event) {
+    switch (event) {
+      case MobileAdEvent.loaded:
+        _isInterstitialAdReady = true;
+        _interstitialAd.show();
+        break;
+      case MobileAdEvent.failedToLoad:
+        _isInterstitialAdReady = false;
+        print('Failed to load an interstitial ad');
+        break;
+      case MobileAdEvent.closed:
+        Navigator.of(context).pushNamed('/Mainpage');
+        print("ad closed");
+        break;
+      default:
+      // do nothing
+    }
+  }
+
+
+//adssection ends
+  getfname() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+
+    actid=prefs.getString('actidd');
+    print(actid);
+
+  }
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -106,7 +153,10 @@ class _detailsState extends State<details> {
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1
       );
-      Navigator.of(context).pushReplacementNamed('/Mainpage');
+      actid=="3"?
+      Navigator.of(context).pushReplacementNamed('/Mainpage'):
+      _loadInterstitialAd();
+      // Navigator.of(context).pushReplacementNamed('/Mainpage');
 
     } else {
       //print("failed to go");
@@ -145,6 +195,18 @@ class _detailsState extends State<details> {
       //   getImage(ImageSource.gallery);
       // }
     });
+    getfname();
+    //adsinit
+    _isInterstitialAdReady = false;
+
+    // TODO: Initialize _interstitialAd
+    _interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      // adUnitId: 'ca-app-pub-6857391469887868/9102752210',
+      listener: _onInterstitialAdEvent,
+    );
+
+    //adsinit ends
   }
 checksaves() async{
   final DatasentService dataserv = await getdataSer();

@@ -208,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
+                  SizedBox(height: 30,),
                   getImageWidget(),
                   // ImagesMerge(
                   //   data['imageList'],///required,images list
@@ -217,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   //   fit: false,///scale image to fit others
                   //   //controller: captureController,///controller to get screen shot
                   // ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 60,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
